@@ -110,8 +110,6 @@ typedef NSFont UIFont;
                                 atIndex:level - 1
                                toString:attributedString
                                   range:NSMakeRange(range.location -1, range.length + 2)];
-
-        [TSMarkdownParser addAttributes:weakParser.quoteAttributes atIndex:level - 1 toString:attributedString range:range];
     }];
     
     /* bracket parsing */
