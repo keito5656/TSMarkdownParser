@@ -90,8 +90,8 @@ typedef NSFont UIFont;
     [defaultParser addListParsingWithMaxLevel:0 leadFormattingBlock:^(NSMutableAttributedString *attributedString, NSRange range, NSUInteger level) {
         NSMutableString *listString = [NSMutableString string];
         while (--level)
-            [listString appendString:@"\t"];
-        [listString appendString:@"•\t"];
+            [listString appendString:@" "];
+        [listString appendString:@"• "];
         [attributedString replaceCharactersInRange:range withString:listString];
     } textFormattingBlock:^(NSMutableAttributedString *attributedString, NSRange range, NSUInteger level) {
         [TSMarkdownParser addAttributes:weakParser.listAttributes atIndex:level - 1 toString:attributedString range:range];
