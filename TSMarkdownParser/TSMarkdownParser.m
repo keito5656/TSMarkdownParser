@@ -100,10 +100,16 @@ typedef NSFont UIFont;
     [defaultParser addQuoteParsingWithMaxLevel:0 leadFormattingBlock:^(NSMutableAttributedString *attributedString, NSRange range, NSUInteger level) {
         NSMutableString *quoteString = [NSMutableString string];
         while (level--)
-            [quoteString appendString:@"\t"];
+            [quoteString appendString:@""];
         [attributedString replaceCharactersInRange:range withString:quoteString];
     } textFormattingBlock:^(NSMutableAttributedString * attributedString, NSRange range, NSUInteger level) {
-        [TSMarkdownParser addAttributes:weakParser.quoteAttributes atIndex:level - 1 toString:attributedString range:range];
+        NSMutableString *quoteString = [NSMutableString string];
+        [quoteString appendFormat:@"\“%@\”", [[attributedString string] substringWithRange:range]];
+        [attributedString replaceCharactersInRange:range withString:quoteString];
+        [TSMarkdownParser addAttributes:weakParser.quoteAttributes
+                                atIndex:level - 1
+                               toString:attributedString
+                                  range:NSMakeRange(range.location -1, range.length + 3)];
     }];
     
     /* bracket parsing */
